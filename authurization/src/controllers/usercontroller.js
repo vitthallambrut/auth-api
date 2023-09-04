@@ -95,7 +95,7 @@ class UserController {
         if(userDetails.length > 0){
           res.send({
             "msg" : "1",
-            "token" : userDetails
+            "result" : userDetails
         })
         }else{
           res.send({
