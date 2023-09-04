@@ -89,13 +89,22 @@ class UserController {
   getUserDetails = async (req,res) =>{
     try{
       let inputObj = {};
+      let resultArr = [];
       inputObj.userId = req.body.userId;
       if(req.body.userId){
         let userDetails = await this.userModel.getUserDetails(inputObj);
         if(userDetails.length > 0){
+          for(let i = 0; i < userDetails.length;i++){
+            let resulObj = {};
+            resulObj.id = userDetails[i].id;
+            resulObj.username = userDetails[i].name;
+            resulObj.email = userDetails[i].email;
+            resulObj.userId = userDetails[i].user_id;
+            resultArr.push(resulObj)
+          }
           res.send({
             "msg" : "1",
-            "result" : userDetails
+            "result" : resultArr
         })
         }else{
           res.send({
