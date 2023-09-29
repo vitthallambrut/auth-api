@@ -12,6 +12,7 @@ router.post('/createtask',taskcontroller.createTask);
 router.post('/updatetask',taskcontroller.updateTask);
 router.post('/tasklist',taskcontroller.taskList);
 router.post('/deletetask',taskcontroller.deleteTask);
+router.post('/gettaskbyid',taskcontroller.getTaskById);
 
 
 module.exports = router;

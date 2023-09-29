@@ -14,6 +14,9 @@ class TaskModel {
     deleteTask(inputObj){
         return dbSettingInstance.query('delete from public.task_details where id=$1 returning id',[inputObj.id]);
     }
+    getTask(inputObj){
+        return dbSettingInstance.query('select id, userid, title, description, duedate, priority, created_date, updated_date from public.task_details where id=$1',[inputObj.id]);
+    }
 }
 
 module.exports = TaskModel;

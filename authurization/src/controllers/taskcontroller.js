@@ -151,6 +151,45 @@ class UserController {
         })
     }
   }
+  getTaskById = async (req,res) =>{
+    try{
+        let inputObj = {};
+        let resultArr = [];
+        inputObj.id= req.body.id;
+        if(req.body.id){
+            let task = await this.taskModel.getTask(inputObj);
+            if(task.length > 0){
+                for(let i = 0; i < task.length; i++){
+                    let resultObj = {};
+                    resultObj.id = task[i].id;
+                    resultObj.userid = task[i].userid;
+                    resultObj.title = task[i].title;
+                    resultObj.description = task[i].description;
+                    resultObj.duedate = task[i].duedate;
+                    resultObj.priority = task[i].priority;
+                    resultObj.created_date = task[i].created_date;
+                    resultObj.updated_date = task[i].updated_date;
+                    resultArr.push(resultObj);
+                }
+            }
+            res.send({
+                "msg":"1",
+                "result":resultArr         
+            }) 
+        }else{
+            res.send({
+                "msg":"-1",
+                "result":"Invalid params..!"
+            })
+        }
+    }catch(error){
+        console.log(error)
+        res.send({
+            "msg":"-1",
+            "result":"Unsuccess"
+        })
+    }
+  }
 }
 
 module.exports = new UserController();
