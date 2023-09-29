@@ -70,15 +70,21 @@ class UserController {
                     resultObj.updated_date = getlist[i].updated_date;
                     resultArr.push(resultObj)
                 }
+                res.send({
+                    "msg":"1",
+                    "result":resultArr         
+                }) 
+            }else{
+                res.send({
+                    "msg":"1",
+                    "result":resultArr
+                }) 
             }
-            res.send({
-                "msg":"1",
-                "result":resultArr         
-            }) 
+            
         }else{
             res.send({
                 "msg":"-1",
-                "result":resultArr
+                "result":"Invalid params"
             }) 
         }
     }catch(error){
