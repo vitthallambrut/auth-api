@@ -61,9 +61,10 @@ class UserController {
       inputObj.password = req.body.password;
       if(req.body.email && req.body.password){
         let checkUser = await this.userModel.checkUser(inputObj);
+        if(checkUser.length > 0){
         inputObj.password = await bcrypt.compare(req.body.password, checkUser[0].password);
         if(inputObj.email == checkUser[0].email && inputObj.password == true){
-          let token = jwt.sign( {id: checkUser[0].user_id}, process.env.SECRET_KEY, { expiresIn: '1h' });
+           let token = jwt.sign( {id: checkUser[0].user_id}, process.env.SECRET_KEY, { expiresIn: '1h' });
           console.log(token)
           res.send({
               "msg" : "1",
@@ -75,6 +76,12 @@ class UserController {
             "result" : "Invalid user details..!!"
         }) 
         }
+      }else{
+        res.send({
+          "msg" : "-1",
+          "result" : "Invalid user details..!!"
+      })
+      }
       }else{
         res.send({
           "msg" : "-1",
